@@ -6,15 +6,19 @@ Automated email classification system that compares traditional TF-IDF with GenA
 
 Classifies emails into 4 categories:
 - **Spam** - Scams and unwanted messages
-- **Promotion** - Marketing and offers
+- **Promotions** - Marketing and offers
 - **Support** - Customer service inquiries
 - **Personal** - Private conversations
+
+## 📊 Dataset
+
+The project uses **dataset.csv** containing 800+ real-world email samples with balanced distribution across all categories.
 
 ## 🚀 Quick Start
 
 ### Install dependencies
 ```bash
-pip install scikit-learn sentence-transformers numpy
+pip install scikit-learn sentence-transformers numpy pandas
 ```
 
 ### Run the project
@@ -27,12 +31,13 @@ python email_classification.py
 1. **Baseline**: TF-IDF + Logistic Regression
 2. **GenAI**: Sentence Transformers (all-MiniLM-L6-v2) + Logistic Regression
 
-## 📊 Features
+## 📈 Features
 
-- 20 mock emails for demonstration
-- Train/test split with evaluation metrics
-- Real-time prediction function
-- Confidence scores for each prediction
+- 800+ email samples from CSV dataset
+- Train/test split with stratified sampling
+- Comprehensive evaluation metrics (Accuracy, F1-Score)
+- Real-time prediction function with confidence scores
+- Detailed performance comparison
 
 ## 📖 Documentation
 
@@ -42,7 +47,7 @@ See [PROJECT_REPORT.md](PROJECT_REPORT.md) for detailed technical documentation.
 
 ```python
 predict_email_class("Congratulations! You have won a $1000 gift card.")
-# Output: Spam (64.21% confidence)
+# Output: Spam (high confidence)
 ```
 
 ## 📦 Project Structure
@@ -50,6 +55,7 @@ predict_email_class("Congratulations! You have won a $1000 gift card.")
 ```
 .
 ├── email_classification.py   # Main implementation
+├── dataset.csv               # Email dataset (800+ samples)
 ├── PROJECT_REPORT.md         # Technical documentation
 └── README.md                 # This file
 ```
@@ -59,4 +65,5 @@ predict_email_class("Congratulations! You have won a $1000 gift card.")
 - Python 3.x
 - scikit-learn
 - sentence-transformers
+- pandas
 - NumPy" 

@@ -4,6 +4,7 @@ Comparing Baseline (TF-IDF) vs GenAI (Sentence Transformers) Models
 """
 
 import numpy as np
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -11,51 +12,30 @@ from sklearn.metrics import accuracy_score, f1_score
 from sentence_transformers import SentenceTransformer
 
 # ============================================================================
-# 1. DUMMY DATA: 20 Mock Emails
+# 1. LOAD DATA FROM CSV
 # ============================================================================
-
-emails = [
-    # Spam (5 emails)
-    "Congratulations! You've won $1 million. Click here to claim your prize now!",
-    "URGENT: Your account will be closed. Verify your password immediately.",
-    "Get rich quick! Make $5000 per week working from home. No experience needed!",
-    "Free Viagra! Buy now and get 50% discount. Limited time offer!",
-    "You have inherited $10 million from a Nigerian prince. Send us your bank details.",
-    
-    # Promotion (5 emails)
-    "Exclusive 30% OFF on all items this weekend. Shop now at our store!",
-    "New arrivals! Check out our latest collection. Free shipping on orders over $50.",
-    "Flash sale: Up to 70% discount on electronics. Hurry, limited stock!",
-    "Subscribe to our premium membership and get access to exclusive content.",
-    "Holiday special: Buy one get one free on selected items. Visit our website today!",
-    
-    # Support (5 emails)
-    "Your ticket #12345 has been updated. Our team is working on your issue.",
-    "Thank you for contacting our support team. We will respond within 24 hours.",
-    "Your subscription will expire in 7 days. Please renew to continue using our service.",
-    "We have received your refund request. It will be processed in 5-7 business days.",
-    "Your password has been successfully changed. If this wasn't you, contact support immediately.",
-    
-    # Personal (5 emails)
-    "Hey! Are you free for coffee this Saturday? Let me know!",
-    "Thanks for the birthday gift! I really loved it. See you soon!",
-    "Can you send me the presentation slides from yesterday's meeting? Thanks!",
-    "Mom called and asked if you're coming for Thanksgiving dinner.",
-    "I found that book you were looking for. Do you still want to borrow it?"
-]
-
-labels = [
-    'Spam', 'Spam', 'Spam', 'Spam', 'Spam',
-    'Promotion', 'Promotion', 'Promotion', 'Promotion', 'Promotion',
-    'Support', 'Support', 'Support', 'Support', 'Support',
-    'Personal', 'Personal', 'Personal', 'Personal', 'Personal'
-]
 
 print("="*80)
 print("EMAIL CLASSIFICATION PROJECT")
 print("="*80)
+
+# Load dataset
+print("\nLoading dataset from dataset.csv...")
+df = pd.read_csv('dataset.csv')
+
+# Extract emails and labels
+emails = df['text'].tolist()
+labels = df['label'].tolist()
+
+print(f"✓ Dataset loaded successfully")
 print(f"\nTotal emails: {len(emails)}")
 print(f"Labels: {set(labels)}")
+
+# Display label distribution
+label_counts = df['label'].value_counts()
+print(f"\nLabel Distribution:")
+for label, count in label_counts.items():
+    print(f"  {label:<12}: {count} emails ({count/len(emails)*100:.1f}%)")
 
 # ============================================================================
 # 2. SPLIT DATA
